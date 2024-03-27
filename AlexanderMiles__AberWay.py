@@ -4,7 +4,7 @@ from aberway_background_code import create, update, main_loop
 import time
 
 ColourFlip = False
-
+import math
     
 screen, bg, lineList, nodeList = create(ColourFlip)
 update(None, screen, bg, lineList, nodeList, None, None, None, None, 0)
@@ -25,12 +25,18 @@ def path_update():
     k = 0
     i = 0
     j = 0
-    length=[0,0]
+    weights=[0,0]
+
+    lengthDict = {}
+    for v in range(len(nodeList)):#make verts
+        lengthDict[v] = {}
+        for n in nodeList[v][3]: #make connecteds
+            lengthDict[v][n] = {}
 
     def lengthCalculator(v,n):
         x = nodeList[v][0][0] - nodeList[n][0][0]
         y = nodeList[v][0][1] - nodeList[n][0][1]
-        length = [x,y]
+        length = round(math.sqrt((abs(x)**2)+(abs(y)**2)),2) #distance
         return length
 
     for k in nodeList[startPos][3]:
@@ -38,13 +44,16 @@ def path_update():
         for i in nodeList[k][3]:
             print(i)
             for j in nodeList[i][3]:
-                print(j)
-                #print(ListOfNodeId)
-                length = lengthCalculator(i,k) + lengthCalculator(k,j)
-                if length < lengthCalculator(i,j):
-                    weightest = lengthCalculator(i,j)
-                    ListOfNodeId.append(j)
-                    print(ListOfNodeId)
+                #edge = (i, j)
+                lengthDict[i][j] = lengthCalculator(i,j)
+                # print(j)
+                # #print(ListOfNodeId)
+                # length = lengthCalculator(i,k) + lengthCalculator(k,j)
+                # if length < lengthCalculator(i,j):
+                #     weightest = lengthCalculator(i,j)
+                #     ListOfNodeId.append(j)
+                #     print(ListOfNodeId)
+    print(lengthDict)
     print(ListOfNodeId)
 
 
