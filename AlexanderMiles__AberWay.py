@@ -20,6 +20,32 @@ def path_update():
     ListOfNodeId = [] #set the value of this to the nodes that your path takes
     start = time.time_ns() # for timing your algorithm
     # ---------- ---------- YOUR CODE GOES HERE ---------- ----------
+    #def floyd(g):
+    g = [0,10]
+    k = 0
+    i = 0
+    j = 0
+    length=[0,0]
+
+    def lengthCalculator(v,n):
+        x = nodeList[v][0][0] - nodeList[n][0][0]
+        y = nodeList[v][0][1] - nodeList[n][0][1]
+        length = [x,y]
+        return length
+
+    for k in nodeList[startPos][3]:
+        print(k)
+        for i in nodeList[k][3]:
+            print(i)
+            for j in nodeList[i][3]:
+                print(j)
+                #print(ListOfNodeId)
+                length = lengthCalculator(i,k) + lengthCalculator(k,j)
+                if length < lengthCalculator(i,j):
+                    weightest = lengthCalculator(i,j)
+                    ListOfNodeId.append(j)
+                    print(ListOfNodeId)
+    print(ListOfNodeId)
 
 
 
